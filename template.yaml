@@ -1,0 +1,78 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Generic Webhook to EventBridge event bus
+
+Globals:
+  Function:
+    Timeout: 29
+    Runtime: nodejs12.x
+    Tracing: Active
+
+Metadata:
+  AWS::ServerlessRepo::Application:
+    Name: generic-webhook-to-eventbridge
+    Description: "A serverless application that receives a webhook event via POST or GET HTTP method, sends the raw event data to the EventBridge, and replies with the 200 OK response to the webhook sender"
+    Author: Slobodan
+    SpdxLicenseId: MIT
+    LicenseUrl: LICENSE
+    ReadmeUrl: README.md
+    Labels: ['webhook','eventbridge','event','bridge']
+    HomePageUrl: https://github.com/vacationtracker/generic-webhook-to-eventbridge
+    SemanticVersion: 1.0.0
+    SourceCodeUrl: https://github.com/vacationtracker/generic-webhook-to-eventbridge
+
+Parameters:
+  EventBusName:
+    Type: String
+    Description: The name of the EventBridge Event Bus
+  EventSource:
+    Type: String
+    Description: The name of the Webhook source
+    Default: 'webhook'
+
+Resources:
+  WebhookApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: $default
+
+  WebhookFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: build/webhook
+      Handler: lambda.handler
+      Environment:
+        Variables:
+          EVENT_BUS_NAME: !Ref EventBusName
+          EVENT_SOURCE: !Ref EventSource
+      Policies:
+        -
+          Version: 2012-10-17
+          Statement:
+            -
+              Effect: Allow
+              Action:
+                - events:PutEvents
+              Resource: '*'
+      Events:
+        WebhookPost:
+          Type: HttpApi
+          Properties:
+            Path: /
+            Method: POST
+            ApiId: !Ref WebhookApi
+        WebhookGet:
+          Type: HttpApi
+          Properties:
+            Path: /
+            Method: GET
+            ApiId: !Ref WebhookApi
+
+Outputs:
+  WebhookApiUrl:
+    Description: "A webhook URL"
+    Value: !Sub "https://${WebhookApi}.execute-api.${AWS::Region}.amazonaws.com"
+
+  WebhookApiId:
+    Description: "An ID of the API Gateway HTTP API"
+    Value: !Ref WebhookApi
