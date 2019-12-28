@@ -35,7 +35,7 @@ GenericWebhookToSns:
   Type: AWS::Serverless::Application
   Properties:
     Location:
-      ApplicationId: arn:aws:serverlessrepo:us-east-1:721177882564:applications/generic-webhook-to-eventbridge
+      ApplicationId: arn:aws:serverlessrepo:us-east-1:721177882564:applications~generic-webhook-to-eventbridge
       SemanticVersion: 1.0.0
     Parameters:
       EventBusName: Name of your EventBus
@@ -89,7 +89,7 @@ Resources:
     Type: AWS::Serverless::Application
     Properties:
       Location:
-        ApplicationId: arn:aws:serverlessrepo:us-east-1:721177882564:applications/generic-webhook-to-sns
+        ApplicationId: arn:aws:serverlessrepo:us-east-1:721177882564:applications~generic-webhook-to-eventbridge
         SemanticVersion: 1.0.0
       Parameters:
         EventBusName: paymentEventBus
@@ -134,7 +134,7 @@ This will deploy the Webhook app from SAR and a Lambda function that will be tri
 Important parts of the template:
 
 - `StripeWebhook (AWS::Serverless::Application)` is a resource that deploys a Generic webhook to EventBridge event bus app from SAR
-- `ApplicationId: arn:aws:serverlessrepo:eu-central-1:123456789012:applications/generic-webhook-to-eventbridge` is a SAR app ARN (see the [Install from SAR](#install-from-sar) section).
+- `ApplicationId: arn:aws:serverlessrepo:eu-central-1:721177882564:applications~generic-webhook-to-eventbridge` is a SAR app ARN (see the [Install from SAR](#install-from-sar) section).
 
 In production, you should consider adding a few more things, such as:
 
