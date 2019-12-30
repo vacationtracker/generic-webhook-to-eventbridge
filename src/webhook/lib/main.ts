@@ -19,12 +19,18 @@ interface IEvent extends APIGatewayProxyEventWithoutBody {
 export async function sendWebhookEvent(event: APIGatewayProxyEvent, notification: INotificationRepository) {
   try {
     const eventCopy: IEvent = Object.assign({}, event)
-    if (event.body && /^application\/json($|;)/.test(eventCopy.headers['Content-Type'])) {
-      eventCopy.body = JSON.parse(event.body)
+    let body = event.body
+
+    if (body && event.isBase64Encoded) {
+      body = new Buffer(body, 'base64').toString('utf8')
     }
 
-    if (event.body && /^application\/x-www-form-urlencoded($|;)/.test(eventCopy.headers['Content-Type'])) {
-      eventCopy.body = querystring.parse(event.body)
+    if (body && /^application\/json($|;)/.test(eventCopy.headers['Content-Type'])) {
+      eventCopy.body = JSON.parse(body)
+    }
+
+    if (body && /^application\/x-www-form-urlencoded($|;)/.test(eventCopy.headers['Content-Type'])) {
+      eventCopy.body = querystring.parse(body)
     }
 
     return await notification.send(eventCopy)
