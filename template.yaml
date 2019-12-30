@@ -18,7 +18,7 @@ Metadata:
     ReadmeUrl: README.md
     Labels: ['webhook','eventbridge','event','bridge']
     HomePageUrl: https://github.com/vacationtracker/generic-webhook-to-eventbridge
-    SemanticVersion: 1.1.0
+    SemanticVersion: 1.2.0
     SourceCodeUrl: https://github.com/vacationtracker/generic-webhook-to-eventbridge
 
 Parameters:
