@@ -18,7 +18,7 @@ Metadata:
     ReadmeUrl: README.md
     Labels: ['webhook','eventbridge','event','bridge']
     HomePageUrl: https://github.com/vacationtracker/generic-webhook-to-eventbridge
-    SemanticVersion: 1.3.0
+    SemanticVersion: 1.3.1
     SourceCodeUrl: https://github.com/vacationtracker/generic-webhook-to-eventbridge
 
 Parameters:
@@ -49,7 +49,7 @@ Resources:
     Properties:
       CodeUri: build/webhook
       Handler: lambda.handler
-      ReservedConcurrentExecutions: !Ref LambdaReservedConcurrency
+      ProvisionedConcurrencyConfig: !Ref LambdaReservedConcurrency
       AutoPublishAlias: !Ref LambdaAlias
       Environment:
         Variables:
