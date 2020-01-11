@@ -23,7 +23,7 @@ This application accepts the following two parameters:
 
 - `EventBusName` (required) - a name of your EventBridge event bus
 - `EventSource` (optional) - a name of your event source (defualt: webhook)
-- `LambdaReservedConcurrency` (optional) - a number of Lambda function to provision for this webhook (helpful for reducing the latency)
+- `LambdaProvisionedConcurrency` (optional) - a number of Lambda function to provision for this webhook (helpful for reducing the latency)
 - `LambdaAlias` (optional) - an alias for the Lambda function (default: live)
 
 ### Install from SAR
@@ -38,7 +38,7 @@ GenericWebhookToSns:
   Properties:
     Location:
       ApplicationId: arn:aws:serverlessrepo:us-east-1:721177882564:applications~generic-webhook-to-eventbridge
-      SemanticVersion: 1.0.0
+      SemanticVersion: 1.3.2
     Parameters:
       EventBusName: Name of your EventBus
       EventSource: Optional name of your event source (default: webhook)
@@ -92,7 +92,7 @@ Resources:
     Properties:
       Location:
         ApplicationId: arn:aws:serverlessrepo:us-east-1:721177882564:applications/generic-webhook-to-eventbridge
-        SemanticVersion: 1.3.1
+        SemanticVersion: 1.3.2
       Parameters:
         EventBusName: paymentEventBus
         EventSource: stripe-webhook
