@@ -18,7 +18,7 @@ Metadata:
     ReadmeUrl: README.md
     Labels: ['webhook','eventbridge','event','bridge']
     HomePageUrl: https://github.com/vacationtracker/generic-webhook-to-eventbridge
-    SemanticVersion: 1.2.0
+    SemanticVersion: 1.3.0
     SourceCodeUrl: https://github.com/vacationtracker/generic-webhook-to-eventbridge
 
 Parameters:
@@ -29,6 +29,14 @@ Parameters:
     Type: String
     Description: The name of the Webhook source
     Default: 'webhook'
+  LambdaReservedConcurrency:
+    Type: Number
+    Description: Reserved Concurrency for Webhook Lambda function
+    Default: 0
+  LambdaAlias:
+    Type: String
+    Description: An alias for the Lambda function
+    Default: live
 
 Resources:
   WebhookApi:
@@ -41,6 +49,8 @@ Resources:
     Properties:
       CodeUri: build/webhook
       Handler: lambda.handler
+      ReservedConcurrentExecutions: !Ref LambdaReservedConcurrency
+      AutoPublishAlias: !Ref LambdaAlias
       Environment:
         Variables:
           EVENT_BUS_NAME: !Ref EventBusName
