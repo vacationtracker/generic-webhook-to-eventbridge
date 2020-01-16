@@ -1,6 +1,6 @@
 {
   "name": "generic-webhook-to-eventbridge",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Generic Webhook to EventBridge event bus.",
   "main": "jest.config.js",
   "scripts": {
