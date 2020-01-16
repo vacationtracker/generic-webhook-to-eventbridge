@@ -38,7 +38,7 @@ GenericWebhookToSns:
   Properties:
     Location:
       ApplicationId: arn:aws:serverlessrepo:us-east-1:721177882564:applications~generic-webhook-to-eventbridge
-      SemanticVersion: 1.3.2
+      SemanticVersion: 1.3.3
     Parameters:
       EventBusName: Name of your EventBus
       EventSource: Optional name of your event source (default: webhook)
@@ -92,7 +92,7 @@ Resources:
     Properties:
       Location:
         ApplicationId: arn:aws:serverlessrepo:us-east-1:721177882564:applications/generic-webhook-to-eventbridge
-        SemanticVersion: 1.3.2
+        SemanticVersion: 1.3.3
       Parameters:
         EventBusName: paymentEventBus
         EventSource: stripe-webhook
