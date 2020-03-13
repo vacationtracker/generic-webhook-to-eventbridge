@@ -129,3 +129,5 @@ $RECYCLE.BIN/
 build
 packaged.yaml
 samconfig.toml
+publish.command
+

@@ -21,15 +21,17 @@ export async function sendWebhookEvent(event: APIGatewayProxyEvent, notification
     const eventCopy: IEvent = Object.assign({}, event)
     let body = event.body
 
+    const contentType = eventCopy.headers['Content-Type'] || eventCopy.headers['content-type']
+
     if (body && event.isBase64Encoded) {
       body = new Buffer(body, 'base64').toString('utf8')
     }
 
-    if (body && /^application\/json($|;)/.test(eventCopy.headers['Content-Type'])) {
+    if (body && /^application\/json($|;)/.test(contentType)) {
       eventCopy.body = JSON.parse(body)
     }
 
-    if (body && /^application\/x-www-form-urlencoded($|;)/.test(eventCopy.headers['Content-Type'])) {
+    if (body && /^application\/x-www-form-urlencoded($|;)/.test(contentType)) {
       eventCopy.body = querystring.parse(body)
     }
 
