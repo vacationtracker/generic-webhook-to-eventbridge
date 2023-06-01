@@ -5,7 +5,7 @@ Description: Generic Webhook to EventBridge event bus
 Globals:
   Function:
     Timeout: 29
-    Runtime: nodejs12.x
+    Runtime: nodejs18.x
     Tracing: Active
 
 Metadata:
